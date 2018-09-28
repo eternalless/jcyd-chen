@@ -1,0 +1,10 @@
+.listitem {
+  list-style: none;
+}
+.listitem-p {
+  display: inline-block;
+  cursor: pointer;
+}
+.delete {
+  float: right;
+}

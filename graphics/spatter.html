@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>飞溅运动</title>
+</head>
+<body>
+<canvas id="can" style="border: 1px solid #4caf50;"></canvas>
+<script>
+  const c = document.getElementById('can')
+  const ctx = c.getContext('2d')
+  const VIEW_WIDTH = 1000
+  const VIEW_HEIGHT = 500
+  const G = 9.8
+  const t = 50/1000 //时钟周期
+  c.width = VIEW_WIDTH
+  c.height = VIEW_HEIGHT
+  const init = () => {
+    let dataMap = new Map()
+    for(let i = 0; i<10; i++) {
+      let p = {}
+      p.inity = 200
+      p.initx = 500
+      p.x = 500
+      p.y = 200
+      p.tx = 0
+      p.ty = 0
+      p.v0 = Math.round(Math.random()*50)
+      p.angle = Math.round(Math.random()*360)
+      p.vx = p.v0 * Math.cos(p.angle / 180 * Math.PI) * 2
+      p.vy = - p.v0 * Math.sin(p.angle / 180 * Math.PI)
+      p.vychange = p.vy
+      dataMap.set(`fly${i}`, p)
+    }
+    return dataMap
+  }
+  const dataMap = init()
+  const draw = (a,b) => {
+    ctx.fillStyle = '#4caf50'
+    ctx.beginPath()
+    ctx.arc(a,b,2,0,Math.PI*2,true)
+    ctx.closePath()
+    ctx.fill()
+  }
+  const redraw = (fly) => {
+    fly.tx += t
+    fly.ty += t
+    fly.x = fly.initx + fly.vx*fly.tx
+    fly.y = fly.inity + (fly.vy*fly.ty + 1/2*G*fly.ty*fly.ty)
+    fly.vychange = fly.vy + G*fly.ty
+    if(fly.x > VIEW_WIDTH || fly.y > VIEW_HEIGHT) {
+      fly.ty = 0
+      fly.y = 500
+      fly.vy = -.75 * fly.vychange
+      fly.inity = fly.y
+      draw(fly.x, fly.y)
+    }else {
+      draw(fly.x, fly.y)
+    }
+
+  }
+  // draw(300,200)
+  setInterval(function () {
+    for(let i = 0;i<10;i++){
+      redraw(dataMap.get(`fly${i}`))
+    }
+  },50)
+
+</script>
+</body>
+</html>

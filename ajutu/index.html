@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ajutu</title>
+  <link rel="stylesheet" href="./css/light.min.css">
+  <link type="text/css" rel="styleSheet" href="./css/solid.min.css"/>
+  <link rel="stylesheet" href="css/fontawesome.css">
+  <link type="text/css" rel="styleSheet" href="./css/reset.css"/>
+  <link type="text/css" rel="styleSheet" href="./css/index.css"/>
+</head>
+<body>
+<div class="container" id="app" v-cloak>
+  <div class="cover" v-show="isEdit" @click="showWrap()">
+  </div>
+  <div class="cover-content" v-show="isEdit">
+    <div class="content-left">
+      <h3 class="cover-name ml6">Upload a New Avatarskr</h3>
+      <input class="cover-title ml6" type="text" placeholder="Set a title name..." v-model="title">
+      <div class="cover-trademark_select" @click="editRadio">
+        <input class="trademark-radio" type="radio" name="trademark" id="female" value="female"
+               :checked="trademarkRadio"/>
+        <label for="female" @click="editRadio">Copyright restrictions</label>
+        <div class="user-defined">
+          <span class="circle"></span>
+        </div>
+      </div>
+      <div class="cover-reproduce">
+        <span>Reproduce on</span>
+        <input type="text" placeholder="http://" v-model="link">
+        <span v-show="link"><i class="fal fa-external-link"></i></span>
+      </div>
+      <p class="cover-tags ml6">Tags</p>
+      <ul class="cover-tag">
+        <li v-show="tags" class="tag-li" v-for="(tag, index) in tags" :key="index">
+          <span contenteditable="true" @keydown.enter.9.prevent="addTag(index)" @keyup="keyTag($event, index)"  @keyup.delete="deleteTag($event, index, tag)" ref="tag">{{tag}}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="content-right">
+      <div class="right-load-wrap">
+        <div class="right-load">
+          <p style="font-size: 15px">😄</p>
+          <div class="load-dec">Drag an image here or browse for an image to upload.</div>
+          <input class="upload-img" type="file" @change="getImgBase">
+          <img v-show="img" class="img-style" :src="imgBase64">
+        </div>
+      </div>
+      <p style="margin-top: 20px">JPG,GIF or PNG</p>
+      <p>Shots are 360 x 360 (for HiDPI)</p>
+      <p v-show="imgBase64" class="right-re-upload" @click="delImg()">{{isDelete}}</p>
+      <button class="right-button_push" @click="pushEdit">
+        👌
+      </button>
+    </div>
+    <div class="sure-wrap" v-show="isSure">
+      <div class="sure-container">
+        <p class="sure-normal">{{sure}}</p>
+        <p class="sure-p">SURE?</p>
+        <div class="button-wrap">
+          <transition name="button-no-fade">
+            <button v-show="isSureButton" class="button-no" @mouseenter="showNo" @mouseleave="hiddenNo"
+                    @click="showSure(1)">No
+            </button>
+          </transition>
+          <transition name="button-yes-fade">
+            <button v-show="isSureButton" class="button-yes" @mouseenter="showYes" @mouseleave="hiddenNo"
+                    @click="showDeleteSuccess">Yes
+            </button>
+          </transition>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cover" v-show="isLostLogin" @click="showLogin()">
+  </div>
+  <div class="login-content" v-show="isLogin">
+    <div class="login-wrap">
+      <h1 class="login-h1">Login</h1>
+      <div class="wechat-wrap">
+        <div class="wechat-left">
+          <p>🤜🤛If you are willing to join the team of resource updates</p>
+          <p>please contact me on WeChat:<b>imzeng</b></p>
+        </div>
+        <div class="wechat-right" @click="showCode">
+          <i class="fal fa-qrcode"></i>
+        </div>
+      </div>
+      <div class="login-email">
+        <input type="text" placeholder="Email Address">
+      </div>
+      <div class="login-email login-password">
+        <input type="text" placeholder="Password">
+      </div>
+      <div class="login-footer">
+        <span @click="showLost">Lost my Password</span>
+        <div class="login-key">
+          <button>🔑</button>
+        </div>
+      </div>
+      <div class="code-content" v-show="isCodeWrap">
+        <transition name="slide-fade">
+          <div class="code-left" v-show="isCode">
+            <div class="code-img">
+              <img src="./imgs/1.jpeg" alt="">
+              <p style="margin-top: 20px">Please state your <b>intentions</b></p>
+              <p>when adding to friends</p>
+            </div>
+          </div>
+        </transition>
+        <transition name="x-fade">
+          <div class="code-right" @click="hiddenCode" v-show="isCode">
+            <div class="code-right-x">×</div>
+          </div>
+        </transition>
+      </div>
+      <div class="code-wrap" v-show="isCode"></div>
+    </div>
+  </div>
+  <div class="login-content" v-show="isLost">
+    <h1 class="login-h1">Find out it!</h1>
+    <div class="wechat-wrap">
+      <div class="wechat-left">
+        <p>Bad memory, eat more peanuts 🥜</p>
+      </div>
+    </div>
+    <div class="login-email">
+      <input type="text" placeholder="Email Address">
+    </div>
+    <div class="login-footer">
+      <span @click="showLost">I suddenly remembered it.</span>
+      <div class="login-key">
+        <button>👌</button>
+      </div>
+    </div>
+  </div>
+  <header>
+    <div class="header-left">
+      <span class="left-title">Avatarskr </span>
+      <span class="left-name"> 😎 Free download for Designer,non-commercial purpose</span>
+    </div>
+    <div class="header-right">
+      <span class="header-right-upload" @click="showEdit()"><i class="fas fa-cloud-upload"></i></span>
+      <input type="text" name="search" placeholder="Search..." onfocus="this.placeholder=''"
+             onblur="this.placeholder='Search...'">
+    </div>
+  </header>
+  <div class="main">
+    <div class="left-hand">👈</div>
+    <div class="right-hand">👉</div>
+    <ul>
+      <li class="main-li" v-for="(item, index) in data" :key="index">
+        <img :src="item.url" alt="">
+        <span class="li-trademark" v-show="item.trademark"><i class="fal fa-copyright"></i>️</span>
+        <div class="trademark-title">Not for commercial use</div>
+        <div class="li-icon">
+          <ul>
+            <li class="icon1" @click="showEdit(index)">
+              <i class="fal fa-pencil"></i>
+            </li>
+            <li class="icon2">
+              <i class="fal fa-link"></i>
+            </li>
+            <li class="icon3">
+              <i class="fas fa-cloud-download"></i>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <footer>
+    <div class="footer-left">
+      <span>Proudly powered by <b>Ajutu.com</b> and <b>Closepx.com</b></span>
+    </div>
+    <div class="footer-right">
+      <span><b>Privacy Policy</b></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <span>2018 ©️ <b>Avatarskr.com</b></span>
+    </div>
+  </footer>
+  <div class="delete-success-wrap">
+    <transition name="delete-success-fade">
+      <div class="delete-success" v-show="isDeleteSuccess">
+        <span>🙄</span> Okey!You Deleted it!
+      </div>
+    </transition>
+  </div>
+</div>
+</body>
+<script src="./js/vue.js"></script>
+<script src="./js/index.js"></script>
+</html>

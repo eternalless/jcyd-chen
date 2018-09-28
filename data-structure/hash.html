@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>散列表</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+  window.onload = function () {
+    /**
+     * 一个简单的散列表
+     * @constructor
+     */
+    function HashTable() {
+      this.table = new Array(137);    // 定义数组长度
+      this.simpleHash = simpleHash;         // 简单的散列函数
+      this.betterHash = betterHash;         // 简单的散列函数
+      this.showDistro = showDistro;         // 显示元素
+      this.put = put;       // 插入元素
+      this.openPut = openPut;       // 开链法插入元素
+      this.linkPut = linkPut;       // 线性探测法插入元素
+      this.get = get;     // 获取元素
+      this.bulidTable = bulidTable //添加二维数组
+    }
+    //添加二维数组
+    function bulidTable() {
+      for(var i = 0; i<this.table.length; i++){
+        this.table[i] = new Array()
+      }
+    }
+   //简单的散列函数 除留余数法
+    function simpleHash(data) {
+      var total = 0
+      for(var i = 0; i < data.length; i++){
+        total += data.charCodeAt(i)
+      }
+      console.log(data + '->total' + total)
+      return total % this.table.length
+    }
+    //改造后的散列函数
+    function betterHash(data) {
+      var h = 31
+      var total = 0
+      for(var i = 0; i < data.length; i++){
+        total += h*total + data.charCodeAt(i)
+      }
+      console.log(data + '->total：' + total)
+      return total % this.table.length
+    }
+    //显示元素
+    function showDistro() {
+      for(var i = 0; i < this.table.length; i++) {
+        if(this.table[i]  !== undefined) {
+          console.log('键值是->' + i + '值是' + this.table[i])
+        }
+      }
+    }
+    //插入元素
+    function put(data) {
+     var pos = this.simpleHash(data)
+      this.table[pos] = data
+    }
+    //开链法插入元素
+    function openPut(data) {
+      var pos = this.simpleHash(data)
+      var index = 0
+      if(this.table[pos][index] === undefined) {
+        this.table[pos][index] = data
+        index ++
+      }else {
+        while(this.table[pos][index] !== undefined) {
+           ++index
+        }
+        this.table[pos][index] = data
+      }
+    }
+    //线性探测法
+    function linkPut(data) {
+      var pos = this.simpleHash(data)
+      if(this.table[pos] === undefined) {
+        this.table[pos] = data
+      }else {
+        while(this.table[pos] !== undefined) {
+          pos++
+        }
+        this.table[pos] = data
+      }
+    }
+    //获取元素
+    function get(key) {
+      return this.table[this.simpleHash(key)]
+    }
+
+    var ht = new HashTable()
+    // ht.bulidTable()
+    ht.linkPut('abc')
+    ht.linkPut('china')
+    ht.linkPut('bbb')
+    ht.linkPut('ss')
+    ht.linkPut('nicah')
+    ht.linkPut('cba')
+    ht.linkPut('cba')
+    ht.showDistro()
+  }
+</script>
+</html>

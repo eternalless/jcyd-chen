@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>栈</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+  window.onload = function () {
+    /**
+     * 一个简单的栈
+     * @constructor
+     */
+    function Stack() {
+      this.dataStore = [];    //保存栈内元素
+      this.top = 0;           //记录栈顶位置
+      this.push = push;       //入栈
+      this.pop = pop;         //出栈
+      this.peek = peek;       //返回栈顶元素
+      this.clear = clear;     //清空栈
+      this.length = length;   //栈长度
+    }
+   //向栈中压入元素，并让指针 top + 1，让其指向数组的下一个空位置
+    function push(element) {
+      this.dataStore[this.top++] = element
+    }
+    //出栈操作，并让指针 top - 1
+    function pop() {
+      return this.dataStore[--this.top]
+    }
+    //返回栈顶元素
+    function peek() {
+      return this.dataStore[this.top - 1]
+    }
+    //清空栈
+    function clear() {
+      this.top = 0
+    }
+    //返回栈长度
+    function length() {
+      return this.top
+    }
+    // var stack = new Stack()
+    // stack.push('小黑1')
+    // stack.push('小红2')
+    // stack.push('小白3')
+    // stack.push('小紫4')
+    // console.log('栈顶', stack.peek())
+    // console.log('栈长度', stack.length())
+    // console.log('出栈', stack.pop())
+    console.log('=======判断一个字符串是不是回文=========')
+    function isPalindrome(word) {
+      var s = new Stack()
+      for(var i = 0; i < word.length; i++){
+        s.push(word[i])
+      }
+      console.log(s)
+      var rword = ''
+      while (s.length() > 0) {
+        rword += s.pop()
+      }
+      console.log(rword)
+      return rword === word ? true : false
+    }
+    var word = 'racecar'
+    var word2 = '10001'
+    var word3 = 'abc'
+    console.log(isPalindrome(word))      // true
+    console.log(isPalindrome(word2))   // true
+    console.log(isPalindrome(word3))   // false
+  }
+</script>
+</html>

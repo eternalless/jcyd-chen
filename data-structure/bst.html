@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>二叉查找树（BST）</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+  window.onload = function () {
+    /**
+     * 一个简单的二叉查找树（BST）
+     * @constructor
+     */
+    //节点定义
+    function Node(data, left, right) {
+      this.data = data;       // 数据
+      this.left = left;         // 左节点
+      this.right = right;     // 右节点
+      this.show = show;      // 显示节点数据
+    }
+
+    //二叉树类
+    function BST() {
+      this.root = null;           // 根节点
+      this.insert = insert;       // 插入节点
+      this.preOrder = preOrder;   // 先序遍历
+      this.inOrder = inOrder;     // 中序遍历
+      this.postOrder = postOrder; // 后序遍历
+      this.find = find;           // 查找节点
+      this.getMin = getMin;       // 查找最小值
+      this.getMax = getMax;       // 查找最大值
+      this.remove = remove;       // 删除节点
+      this.removeNode = removeNode;       // 删除节点
+    }
+
+    //显示节点数据
+    function show() {
+      return this.data
+    }
+
+    //插入节点
+    /*首先要添加新的节点，首先需要创建一个Node对象，将数据传入该对象。
+        其次要检查当前的BST树是否有根节点，如果没有，那么表示是一棵新数，该节点就为该树的根节点，那么插入这个过程就结束了；
+        否则，就要继续进行下一步了。
+        如果待插入节点不是根节点，那么就必须对BST进行遍历，找到合适的位置。该过程类似遍历链表，用一个变量存储当前节点，
+        一层一层遍历BST，算法如下：
+        1.设值当前节点为根节点
+        2.如果待插入节点保存的数据小于当前节点，则新节点为原节点的左节点，反之，执行第4步
+        3.如果当前节点的左节点为null，就将新节点放到这个位置，退出循环；反之，继续执行下一次循环
+        4.设置新节点为原节点的右节点
+        5.如果当前节点的右节点为null，就将新节点放到这个位置，退出循环；反之，继续执行下一次循环
+*/
+    function insert(data) {
+      var n = new Node(data, null, null)
+      if (this.root === null) {
+        this.root = n
+      } else {
+        var current = this.root
+        var parent
+        while (true) {
+          parent = current
+          if (data < current.data) {
+            current = current.left
+            if (current === null) {
+              parent.left = n
+              break
+            }
+          } else {
+            current = current.right
+            if (current === null) {
+              parent.right = n
+              break
+            }
+          }
+        }
+      }
+    }
+
+    //先序遍历
+    function preOrder(node) {
+      if (node !== null) {
+        console.log(node.show())
+        preOrder(node.left)
+        preOrder(node.right)
+      }
+    }
+
+    //中序遍历
+    function inOrder(node) {
+      if (node !== null) {
+        inOrder(node.left)
+        console.log(node.show())
+        inOrder(node.right)
+      }
+    }
+
+    //后序遍历
+    function postOrder(node) {
+      if (node !== null) {
+        postOrder(node.left)
+        postOrder(node.right)
+        console.log(node.show())
+      }
+    }
+
+    //查找节点
+    function find(data) {
+      var current = this.root
+      while (current !== null) {
+        if (current.data === data) {
+          return current
+        } else if (data < current.data) {
+          current = current.left
+        } else {
+          current = current.right
+        }
+      }
+      return null
+    }
+
+    //查找最小值
+    function getMin(root) {
+      var current = this.root || root
+      while (current.left !== null) {
+        current = current.left
+      }
+      return current
+    }
+
+    //查找最大值
+    function getMax(root) {
+      var current = this.root || root
+      while (current.right !== null) {
+        current = current.right
+      }
+      return current
+    }
+/*
+从BST中删除节点的操作最为复杂，其复杂程度取决于删除的节点位置。如果待删除的节点没有子节点，那么非常简单。
+如果删除包含左子节点或者右子节点，就变得稍微有些复杂。如果删除包含两个节点的节点最为复杂。
+我们采用递归方法，来完成复杂的删除操作，我们定义 remove() 和 removeNode() 两个方法；算法思想如下：
+首先判断当前节点是否包含待删除的数据，如果包含，则删除该节点；
+如果不包含，则比较当前节点上的数据和待删除树的的大小关系。
+如果待删除的数据小于当前节点的数据，则移至当前节点的左子节点继续比较；如果大于，则移至当前节点的右子节点继续比较。
+如果待删除节点是叶子节点（没有子节点），那么只需要将从父节点指向它的链接指向变为null；
+如果待删除节点含有一个子节点，那么原本指向它的节点需要做调整，使其指向它的子节点；
+最后，如果待删除节点包含两个子节点，可以选择查找待删除节点左子树上的最大值或者查找其右子树上的最小值，这里我们选择后一种。
+因此，我们需要一个查找树上最小值的方法，后面会用它找到最小值创建一个临时节点，将临时节点上的值复制到待删除节点，然后再删除临时节点；
+*/
+    //删除操作
+    function remove(data) {
+      this.removeNode(this.root, data)
+    }
+
+    // 删除节点
+    function removeNode(node, data) {
+      if (node === null) return null
+      if (data === node.data) {
+        if (node.left === null && node.right === null) {
+          return null
+        }
+        if (node.left === null) {
+          return node.right
+        }
+        if (node.right === null) {
+          return node.left
+        }
+        var tempNode = getMin(node.right)
+        node.data = tempNode.data
+        node.right = removeNode(node.right, tempNode.data)
+        return node
+      } else if (data > node.data) {
+        node.right = removeNode(node.right, data)
+        return node
+      } else {
+        node.left = removeNode(node.left, data)
+        return node
+      }
+    }
+
+    var bst = new BST()
+    bst.insert(23);
+    bst.insert(45);
+    bst.insert(16);
+    bst.insert(37);
+    bst.insert(99);
+    bst.insert(22);
+    console.log('=====先序======')
+    bst.preOrder(bst.root)
+    console.log('=====中序======')
+    bst.inOrder(bst.root)
+    console.log('=====后序======')
+    bst.postOrder(bst.root)
+    console.log('=====remove======')
+    bst.remove(23)
+    console.log(bst)
+    console.log('最小值->' + bst.getMin(bst.root))
+    console.log('最大值->' + bst.getMax(bst.root))
+  }
+</script>
+</html>

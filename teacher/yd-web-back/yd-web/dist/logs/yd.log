@@ -1,0 +1,33 @@
+[2018-08-21T21:28:29.344] [ERROR] cheese - AwilixResolutionError: Could not resolve 'inddexService'.
+
+Resolution path: inddexService
+    at resolve (/Users/yuanzhijia/Desktop/yd-web/node_modules/awilix/lib/container.js:226:23)
+    at Object.get (/Users/yuanzhijia/Desktop/yd-web/node_modules/awilix/lib/container.js:63:32)
+    at new IndexController (/Users/yuanzhijia/Desktop/yd-web/dist/controllers/TestController.js:43:19)
+    at newClass (/Users/yuanzhijia/Desktop/yd-web/node_modules/awilix/lib/resolvers.js:85:24)
+    at Object.resolve (/Users/yuanzhijia/Desktop/yd-web/node_modules/awilix/lib/resolvers.js:291:20)
+    at Object.build (/Users/yuanzhijia/Desktop/yd-web/node_modules/awilix/lib/container.js:292:37)
+    at memberInvoker (/Users/yuanzhijia/Desktop/yd-web/node_modules/awilix-koa/lib/invokers.js:79:38)
+    at dispatch (/Users/yuanzhijia/Desktop/yd-web/node_modules/koa-compose/index.js:44:32)
+    at next (/Users/yuanzhijia/Desktop/yd-web/node_modules/koa-compose/index.js:45:18)
+    at /Users/yuanzhijia/Desktop/yd-web/node_modules/koa-router/lib/router.js:346:16
+[2018-08-21T21:29:34.296] [ERROR] cheese - { Error: ENOENT: no such file or directory, open '/Users/yuanzhijia/Desktop/yd-web/dist/views/index.html'
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/yuanzhijia/Desktop/yd-web/dist/views/index.html' }
+[2018-08-21T21:29:37.369] [ERROR] cheese - { Error: ENOENT: no such file or directory, open '/Users/yuanzhijia/Desktop/yd-web/dist/views/index.html'
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/yuanzhijia/Desktop/yd-web/dist/views/index.html' }
+[2018-08-21T21:29:40.865] [ERROR] cheese - { Error: ENOENT: no such file or directory, open '/Users/yuanzhijia/Desktop/yd-web/dist/views/index.html'
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/yuanzhijia/Desktop/yd-web/dist/views/index.html' }
+[2018-08-21T21:29:51.374] [ERROR] cheese - { Error: ENOENT: no such file or directory, open '/Users/yuanzhijia/Desktop/yd-web/dist/views/index.html'
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/yuanzhijia/Desktop/yd-web/dist/views/index.html' }

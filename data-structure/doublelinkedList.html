@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>双向链表</title>
+</head>
+<body>
+<script type="text/javascript">
+  window.onload = function () {
+    /**
+     * 一个简单的双向链表
+     * @constructor
+     */
+    // 节点
+    function Node(element) {
+      this.element = element;   //当前节点的元素
+      this.next = null;         //下一个节点链接
+      this.previous = null;         //上一个节点链接
+    }
+
+//链表类
+    function LList() {
+      this.head = new Node('head');     //头节点
+      this.find = find;                   //查找节点
+      this.insert = insert;              //插入节点
+      this.remove = remove;          //删除节点
+      this.display = display;             //显示链表
+      this.lastFind = lastFind;         //查找尾节点
+      this.displReverse = displReverse;                   //反序
+    }
+
+    //查找节点
+    function find(item) {
+      var currNode = this.head
+      while (currNode.element !== item) {
+        currNode = currNode.next
+      }
+      return currNode
+    }
+
+    //插入节点
+    function insert(newElement, item) {
+      var newNode = new Node(newElement)
+      var currNode = this.find(item)
+      newNode.next = currNode.next
+      newNode.previous = currNode
+      currNode.next = newNode
+      if (newNode.next !== null) {
+        newNode.next.previous = newNode
+      }
+    }
+
+    //删除节点
+    function remove(item) {
+      var currNode = this.find(item)
+      if (currNode.next !== null) {
+        currNode.previous.next = currNode.next
+        currNode.next.previous = currNode.previous
+        currNode.next = null
+        currNode.previous = null
+        console.log(currNode)
+      } else {
+        currNode.previous.next = null
+        currNode.previous = null
+      }
+    }
+
+    //显示链表
+    function display() {
+      var currNode = this.head
+      while (currNode.next !== null) {
+        currNode = currNode.next
+        console.log(currNode.element)
+      }
+    }
+
+    //查找尾节点
+    function lastFind() {
+      var currNode = this.head
+      while (currNode.next !== null) {
+        currNode = currNode.next
+      }
+      return currNode
+    }
+
+    //显示反序
+    function displReverse() {
+      var currNode = this.lastFind()
+      while (currNode.previous !== null) {
+        console.log(currNode.element)
+        currNode = currNode.previous
+      }
+    }
+
+    var llist = new LList()
+    llist.insert('小黑', 'head')
+    llist.insert('小白', '小黑')
+    llist.insert('小紫', '小白')
+    llist.insert('小蓝', '小紫')
+    llist.display()
+    llist.remove('小白')
+    llist.display()
+    console.log('========反序=========')
+    llist.displReverse()
+  }
+</script>
+</body>
+</html>

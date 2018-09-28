@@ -1,0 +1,12 @@
+:root{
+    --mainColor:red;
+    --unit:50px;
+}
+body{
+    & .test{
+        height: var(--unit);
+        width:  var(--unit);
+        filter:blur(5px);
+        background:var(--mainColor);
+    }
+}

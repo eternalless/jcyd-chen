@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>函数式编程</title>
+</head>
+<body>
+<div id="test">hehehe</div>
+</body>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    window.onload=function() {
+        //函数的合成
+//        const compose = function (f, g) {
+//            return function (x) {
+//                return f(g(x));
+//            }
+//        }
+//
+//        //函数柯里化
+//        function add(x, y) {
+//            return x + y;
+//        }
+//        function addX(x) {
+//            return function (y) {
+//                return x+y;
+//            }
+//        }
+//        console.log(111)
+//        console.log(addX(1)(2))
+//        +function () {
+//            console.log(a)
+//            a()
+//            var a=function () {
+//                console.log(1)
+//            }
+//            function a() {
+//                console.log(2)
+//            }
+//            console.log(a)
+//            a()
+//            var c=d=a
+//        }();
+//
+//        console.log(d)
+//        console.log(c)
+//    }
+//        this.a = 20;
+//        var test = {
+//            a: 40,
+//            init: function init() {
+//                console.log(this.a);
+//
+//                function go() {
+//                    this.a = 60;
+//                    console.log(this.a);
+//                }
+//
+//                go.prototype.a = 50;
+//                return go;
+//            }
+//
+//        };
+//        var p = test.init();
+//        p();
+//        new (test.init())();
+//        var list=document.getElementsByTagName('li')
+//        for(var i=0;i<list.length;i++){
+//            (function (x) {
+//                list[x].onclick=function () {
+//                    console.log(x)
+//                }
+//            })(i)
+//        }
+//        var list=document.getElementsByTagName('li')
+//        for(let i=0;i<list.length;i++){
+//            clicknum(i)
+//        }
+//       function clicknum(i) {
+//           list[i].onclick=function () {
+//               console.log(i)
+//           }
+//       }
+//         function test(m) {
+//            m={v:5}
+//        }
+//        var m={k:30}
+//        test(m)
+//        console.log(m)
+//        function grade(num) {
+//            console.log(num==100?'1等生':10-Math.floor(num/10)+'等生')
+//        }
+//        grade(2)
+//        $('#test').click(function (argument) {
+//            console.log(1)
+//        })
+//        setTimeout(function () {
+//            console.log(2)
+//        },0)
+//        while(true){
+//            console.log(3)
+//        }
+//        var _console;
+//
+//        function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+//
+//        var a = 'abc';
+//        (_console = console).log.apply(_console, _toConsumableArray(a));
+        var s=[]
+        var arr=s
+        for(var i=0;i<3;i++){
+            var pusher={
+                value:'item'+i
+            },tmp;
+            if(i!==2){
+                tmp=[]
+                pusher.children=tmp
+            }
+            arr.push(pusher)
+            arr=tmp
+        }
+        console.log(s[0])
+    }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.4.4/babel.min.js"></script>
+</html>

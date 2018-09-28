@@ -1,0 +1,22 @@
+[2018-08-11T10:47:17.361] [ERROR] cheese - ReferenceError: result is not defined
+    at /Users/yuanzhijia/Desktop/yd-web/dist/controllers/IndexController.js:21:23
+    at dispatch (/Users/yuanzhijia/Desktop/yd-web/node_modules/koa-simple-router/index.js:186:18)
+    at Router._lookup (/Users/yuanzhijia/Desktop/yd-web/node_modules/koa-simple-router/index.js:198:12)
+    at /Users/yuanzhijia/Desktop/yd-web/node_modules/koa-simple-router/index.js:138:21
+    at dispatch (/Users/yuanzhijia/node_modules/koa-compose/index.js:42:32)
+    at next (/Users/yuanzhijia/node_modules/koa-compose/index.js:43:18)
+    at app.use (/Users/yuanzhijia/Desktop/yd-web/dist/middlewares/errorHandler.js:19:19)
+    at dispatch (/Users/yuanzhijia/node_modules/koa-compose/index.js:42:32)
+    at next (/Users/yuanzhijia/node_modules/koa-compose/index.js:43:18)
+    at app.use (/Users/yuanzhijia/Desktop/yd-web/dist/middlewares/errorHandler.js:10:23)
+[2018-08-11T11:13:09.435] [ERROR] cheese - ReferenceError: result is not defined
+    at /Users/yuanzhijia/Desktop/yd-web/dist/controllers/IndexController.js:21:23
+    at dispatch (/Users/yuanzhijia/Desktop/yd-web/node_modules/koa-simple-router/index.js:186:18)
+    at Router._lookup (/Users/yuanzhijia/Desktop/yd-web/node_modules/koa-simple-router/index.js:198:12)
+    at /Users/yuanzhijia/Desktop/yd-web/node_modules/koa-simple-router/index.js:138:21
+    at dispatch (/Users/yuanzhijia/node_modules/koa-compose/index.js:42:32)
+    at next (/Users/yuanzhijia/node_modules/koa-compose/index.js:43:18)
+    at app.use (/Users/yuanzhijia/Desktop/yd-web/dist/middlewares/errorHandler.js:22:19)
+    at dispatch (/Users/yuanzhijia/node_modules/koa-compose/index.js:42:32)
+    at next (/Users/yuanzhijia/node_modules/koa-compose/index.js:43:18)
+    at app.use (/Users/yuanzhijia/Desktop/yd-web/dist/middlewares/errorHandler.js:10:23)

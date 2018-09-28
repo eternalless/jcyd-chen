@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>echarts</title>
+ <style>
+     #pic1{
+         width:400px;
+         height:400px;
+         margin: 20px auto;
+          }
+      #pic2{
+         width:600px;
+         height:400px;
+         margin: 20px auto;
+          }
+  </style>
+</head>
+<body>
+<button id='return-button' value=''>返回</button>
+<div id="pic2"></div>
+<div id="pic1"></div>
+
+</body>
+<script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts-en.common.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script>
+    var myCharts1 = echarts.init(document.getElementById('pic1'));
+    var dom2=document.getElementById('pic2')
+    var myChart = echarts.init(dom2);
+    myCharts1.on('click', function (params) {
+       console.log(params.data)
+    });
+    let option1 = {
+        title : {
+            text: '某站点用户访问来源',
+            subtext: '纯属虚构',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['直接访问']
+        },
+        series : [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius : '55%',
+                center: ['50%', '60%'],
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '30',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                data:[
+                    {value:335, name:'直接访问'},
+                    {value:310, name:''},
+                ],
+                itemStyle: {
+                    emphasis: {
+                        // shadowBlur: 10,
+                        // shadowOffsetX: 0,
+                        // shadowColor: 'rgba(0, 0, 0, 0.5)',
+                        borderColor: '#fff',
+                        borderWidth: 5,
+                        textStyle: {
+                            fontSize: '30',
+                            fontWeight: 'bold'
+                        }
+                    }
+                }
+            },
+
+        ]
+    };
+    let drillDown = {
+        getOption:function(){
+            let options={
+                title: {
+                    text: '柱状图下钻示例',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c}'
+                },
+                legend: {
+                    left: 'left',
+                    data: ['月数据']
+                },
+                xAxis: {
+                    type: 'category',
+                    name: 'x',
+                    splitLine: {show: true},
+                    data: ['2016-01', '2016-02', '2016-03', '2016-04', '2016-05', '2016-06', '2016-07', '2016-08', '2016-09']
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                yAxis: {
+                    type: 'log',
+                    name: 'y'
+                },
+                series: [
+                    {
+                        name: '月数据',
+                        type: 'bar',
+                        data: [
+                            {value:1, name:'1'},
+                            {value:2, name:'2'},
+                            {value:4, name:'3'},
+                            {value:8, name:'4'},
+                            {value:16, name:'5'},
+                            {value:32, name:'6'},
+                            {value:64, name:'7'},
+                            {value:128, name:'8'},
+                            {value:256, name:'9'}
+                        ]
+                    }
+                ]
+            }
+            return options
+        },
+        initOption:function(myChart, option){
+            myChart.setOption(option);
+            myChart.on('click', function (params) {
+                echarts.dispose(dom2);
+                let myChart2 = echarts.init(dom2)
+                if(params.data.name === '9') {
+                    option.xAxis.data = [
+                        '2016-09-01','2016-09-02','2016-09-03','2016-09-04','2016-09-05','2016-09-06','2016-09-07','2016-09-08',
+                        '2016-09-09','2016-09-10','2016-09-11','2016-09-12','2016-09-13','2016-09-14','2016-09-15','2016-09-16',
+                        '2016-09-17','2016-09-18','2016-09-19','2016-09-20','2016-09-21','2016-09-22','2016-09-23','2016-09-24',
+                        '2016-09-25','2016-09-26','2016-09-27','2016-09-28','2016-09-29','2016-09-30'
+                    ];
+                    option.series[0].data = [
+                        3,4,5,6,5,6,7,8,8,9,
+                        12,13,15,16,20,12,30,21,22,29,
+                        3,4,5,6,5,6,7,8,8,9
+                    ];
+                }
+                else if(params.data.name === '8') {
+                    option.xAxis.data = [
+                        '2016-08-01','2016-08-02','2016-08-03','2016-08-04','2016-08-05','2016-08-06','2016-08-07','2016-08-08',
+                        '2016-08-09','2016-08-10','2016-08-11','2016-08-12','2016-08-13','2016-08-14','2016-08-15','2016-08-16',
+                        '2016-08-17','2016-08-18','2016-08-19','2016-08-20','2016-08-21','2016-08-22','2016-08-23','2016-08-24',
+                        '2016-08-25','2016-08-26','2016-08-27','2016-08-28','2016-08-29','2016-08-30'
+                    ];
+                    option.series[0].data = [
+                        3,4,5,6,5,6,7,8,8,9,
+                        30,31,33,34,35,36,20,29,33,40,
+                        30,31,33,34,35,36,20,29,33,40
+                    ];
+                }else{
+                    option.xAxis.data = [
+                        '2016-08-01','2016-08-02','2016-08-03','2016-08-04','2016-08-05','2016-08-06','2016-08-07','2016-08-08',
+                        '2016-08-09','2016-08-10','2016-08-11','2016-08-12','2016-08-13','2016-08-14','2016-08-15','2016-08-16',
+                        '2016-08-17','2016-08-18','2016-08-19','2016-08-20','2016-08-21','2016-08-22','2016-08-23','2016-08-24',
+                        '2016-08-25','2016-08-26','2016-08-27','2016-08-28','2016-08-29','2016-08-30'
+                    ];
+                    option.series[0].data = [
+                        3,4,5,6,5,6,7,8,8,9,
+                        3,4,5,6,5,6,7,8,8,9,
+                        3,4,5,6,5,6,7,8,8,9
+                    ];
+                }
+                option.legend.data= ['日数据'];
+                option.series[0].name=['日数据'];
+                myChart2.setOption(option, true);
+            })
+        }
+
+    };
+
+    myCharts1.setOption(option1);
+    var option = drillDown.getOption();
+    drillDown.initOption(myChart,option);
+    $('#return-button').on('click',function(){
+        echarts.dispose(dom2)
+        var myChart1 = echarts.init(dom2);
+        var option = drillDown.getOption();
+        drillDown.initOption(myChart1,option);
+    });
+</script>
+</html>

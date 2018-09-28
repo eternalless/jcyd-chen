@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Promise</title>
+</head>
+<body>
+<script>
+  function myPromise(fn) {
+    var value = null
+    var state = 'pending'
+    var cbs = []
+   this.then = function (fun) {
+     console.log(state)
+      if(state === 'pending') {
+        cbs.push(fun)
+        return this
+      }
+      fun(value)
+      return this
+  }
+  function resolve(newValue) {
+      value = newValue
+      state = 'fulfilled'
+     console.log(state)
+      setTimeout(function () {
+        cbs.forEach(function (cb) {
+          cb(value)
+        })
+      }, 0)
+  }
+  fn(resolve)
+  }
+
+  function bb(res) {
+    console.log(res)
+    return new Promise(function (resolve) {
+      setTimeout(function () {
+        resolve(333)
+      },500)
+    })
+  }
+  var p =new Promise((resolve, reject)=>{
+    setTimeout(function () {
+      resolve(222)
+      console.log(111)
+    },500)
+  })
+  p.then(bb).then(function (res) {
+    console.log(res)
+  })
+</script>
+</body>
+</html>

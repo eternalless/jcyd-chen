@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>小球抛物线运动</title>
+  <style>
+    .boll {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #5e379b;
+    }
+    .warp {
+      animation: ver 2s .5s 2;
+      animation-timing-function: cubic-bezier(.58,.04,.17,1.24);
+    }
+    .item {
+      animation: hor 2s linear .5s 2;
+      /*animation-timing-function: cubic-bezier(.58,.04,.17,1.24);*/
+      position: absolute;
+      top: 50px;
+      bottom: 50px;
+    }
+    @keyframes hor {
+      0% {
+        transform: translateX(0);
+      }
+      100%{
+        transform: translateX(400px);
+      }
+    }
+    @keyframes ver {
+      0% {
+        transform: translateY(0);
+      }
+      100%{
+        transform: translateY(400px);
+      }
+    }
+
+  </style>
+</head>
+<body>
+<!--竖直方向-->
+<div class="warp">
+  <!--垂直方向-->
+  <div class="item">
+    <div class="boll"></div>
+  </div>
+</div>
+</body>
+</html>

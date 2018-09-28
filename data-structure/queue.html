@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>队列</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+  window.onload = function () {
+    /**
+     * 一个简单的队列
+     * @constructor
+     */
+    function Queue() {
+      this.dataStore = [];
+      this.enqueue = enqueue;     //入队
+      this.dequeue = dequeue;     //出队
+      this.dequeue2 = dequeue2;     //优先出队
+      this.front = front;         //查看队首元素
+      this.back = back;           //查看队尾元素
+      this.toString = toString;   //显示队列所有元素
+      this.empty = empty;         //判断当前队列是否为空
+    }
+
+    //入队
+    function enqueue(element) {
+      this.dataStore.push(element)
+    }
+
+    //出队
+    function dequeue() {
+      return this.dataStore.shift()
+    }
+
+    //查看队首元素
+    function front() {
+      return this.dataStore[0]
+    }
+
+    //查看队尾元素
+    function back() {
+      return this.dataStore[this.dataStore.length - 1]
+    }
+
+    //显示队列所有元素
+    function toString() {
+      var reStr = ''
+      for (var i = 0; i < this.dataStore.length; i++) {
+        reStr += this.dataStore[i] + '\n'
+      }
+      return reStr
+    }
+
+    //判断当前队列是否为空
+    function empty() {
+      return !this.dataStore.length ? true : false
+    }
+
+    // var queue = new Queue()
+    // queue.enqueue('小黑1')
+    // queue.enqueue('小红2')
+    // queue.enqueue('小白3')
+    // queue.enqueue('小紫4')
+    // console.log('是否为空', queue.empty())
+    // console.log(queue.toString())
+    // console.log('出队', queue.dequeue())
+    // console.log(queue.toString())
+    function Patient(name, code) {
+       this.name = name
+       this.code = code
+    }
+    function dequeue2() {
+      var priority = 0;
+      for(var i = 1; i < this.dataStore.length; i++) {
+        //比较谁的优先级高，谁先出队
+        if(this.dataStore[i].code > this.dataStore[priority].code) {
+          priority = i
+        }
+      }
+      return this.dataStore.splice(priority, 1)
+    }
+    var a = new Patient('小黑', 1)
+    var a2 = new Patient('小黑2', 7)
+    var a3 = new Patient('小黑3', 4)
+    var a4 = new Patient('小黑4', 8)
+    var a5 = new Patient('小黑5', 5)
+    var queue = new Queue()
+    queue.enqueue(a)
+    queue.enqueue(a2)
+    queue.enqueue(a3)
+    queue.enqueue(a4)
+    queue.enqueue(a5)
+    console.log('优先出队')
+    console.log(queue.dequeue2())
+  }
+</script>
+</html>

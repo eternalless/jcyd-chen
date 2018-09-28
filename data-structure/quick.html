@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>快速排序</title>
+</head>
+<body>
+   <script>
+     // 快速排序
+     function qSort(list) {
+       if( list.length === 0) return []
+       var pivot = list[0]
+       var lesser = []
+       var greater = []
+       for(var i = 1; i < list.length; i++) {
+         if(list[i] < pivot) {
+           lesser.push(list[i])
+         } else {
+           greater.push(list[i])
+         }
+       }
+       console.log(qSort(lesser).concat(pivot, qSort(greater)))
+       return qSort(lesser).concat(pivot, qSort(greater))
+     }
+
+     var arr = [4,3,5,2]
+     console.log(qSort(arr))
+
+   </script>
+</body>
+</html>

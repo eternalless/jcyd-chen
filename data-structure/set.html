@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>集合</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+  window.onload = function () {
+    /**
+     * 一个简单的集合
+     * @constructor
+     */
+    function Set() {
+      this.dataStore = [];            // 数据存储
+      this.add = add;                 // 添加成员
+      this.remove = remove;           // 删除成员
+      this.show = show;               // 显示当前集合
+      this.size = size;               // 集合元素个数
+      this.union = union;             // 集合求并集
+      this.intersect = intersect;     // 集合求交集
+      this.subset = subset;           // 判断一个集合是否是另一集合的子集
+      this.difference = difference;   // 集合求补集
+      this.contains = contains;       // 判断某成员是否属于该集合
+    }
+
+    //添加成员
+    function add(data) {
+      if (this.dataStore.indexOf(data) < 0) {
+        this.dataStore.push(data)
+      } else {
+        return false
+      }
+    }
+
+    //删除成员
+    function remove(data) {
+      var pos = this.dataStore.indexOf(data);
+      if (pos > -1) {
+        this.dataStore.splice(pos, 1)
+      } else {
+        return false
+      }
+    }
+
+    // 显示当前集合
+    function show() {
+      return this.dataStore
+    }
+    // 显示集合个数
+    function size() {
+      return this.dataStore.length
+    }
+
+    // 集合求并集
+    function union(set) {
+      var tempSet = new Set()
+      for (var i = 0; i < this.dataStore.length; i++) {
+        tempSet.add(this.dataStore[i])
+      }
+      for (var i = 0; i < set.dataStore.length; i++) {
+        if (!tempSet.contains(set.dataStore[i])) {
+          tempSet.add(set.dataStore[i])
+        }
+      }
+      return tempSet
+    }
+
+    // 集合求交集
+    function intersect(set) {
+      var tempSet = new Set()
+      for (var i = 0; i < this.dataStore.length; i++) {
+        if (set.contains(this.dataStore[i])) {
+          tempSet.add(this.dataStore[i])
+        }
+      }
+      return tempSet
+    }
+
+    //集合求补集
+    function difference(set) {
+      var tempSet = new Set()
+      for (var i = 0; i < this.dataStore.length; i++) {
+        if (!set.contains(this.dataStore[i])) {
+          tempSet.add(this.dataStore[i])
+        }
+      }
+      return tempSet
+    }
+
+
+
+  // 集合求子集
+  function subset(set) {
+      if(set.size() > this.size())  return false
+    for(var i = 0; i < set.dataStore.length; i++) {
+        if(!this.contains(set.dataStore[i])) {
+          return false
+        }
+    }
+    return true
+  }
+
+  // 判断某成员是否属于该集合
+  function contains(data) {
+    return this.dataStore.indexOf(data) > -1 ? true : false
+  }
+
+  var set = new Set()
+  set.add('1')
+  set.add('1')
+  set.add('13')
+  set.add('14')
+  set.add('15')
+  set.remove('15')
+  console.log(set.show())
+  var set2 = new Set()
+  set2.add('1')
+  set2.add('21')
+  set2.add('213')
+  set2.add('14')
+    console.log(set2.show())
+  console.log('=====并集====')
+  console.log(set.union(set2).show())
+  console.log('=====交集====')
+  console.log(set.intersect(set2).show())
+  console.log('=====补集====')
+  console.log(set.difference(set2).show())
+    var set3 = new Set()
+    set3.add('1')
+    set3.add('13')
+    set3.add('14')
+    console.log('=====set3是set子集====')
+   console.log(set.subset(set3))
+    console.log('=====set2是set子集====')
+    console.log(set.subset(set2))
+  }
+</script>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>字典</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+  window.onload = function () {
+    /**
+     * 一个简单的字典
+     * @constructor
+     */
+    function Dictionary() {
+      this.dataStore = new Array();    //保存字典元素
+      this.add = add;         // 添加元素
+      this.find = find;       // 查找元素
+      this.count = count;     // 字典中元素个数
+      this.clear = clear;     // 清空字典
+      this.remove = remove;   // 删除元素
+      this.showAll = showAll; // 显示字典元素
+    }
+   //添加元素
+    function add(key, value) {
+      this.dataStore[key] = value
+    }
+    //查找元素
+    function find(key) {
+      return this.dataStore[key]
+    }
+    //字典中元素个数
+    function count() {
+      return Object.keys(this.dataStore).length
+    }
+    //清空字典
+    function clear() {
+      var datakeys = Object.keys(this.dataStore)
+      for(var keys in datakeys) {
+        delete this.dataStore[datakeys[keys] ]
+      }
+    }
+    //删除元素
+    function remove(key) {
+      delete this.dataStore[key]
+    }
+    //显示字典所有元素
+    function showAll() {
+      var datakeys = Object.keys(this.dataStore)
+      for(var keys in datakeys) {
+        console.log(datakeys[keys] + '-->' + this.dataStore[datakeys[keys]])
+      }
+    }
+    var dictionary = new Dictionary()
+    dictionary.add('小黑', '1')
+    dictionary.add('小红', '2')
+    dictionary.add('小白', '23')
+    dictionary.add('小紫', '4')
+    console.log('小黑', dictionary.find('小黑'))
+    dictionary.showAll()
+    dictionary.remove('小黑')
+    dictionary.showAll()
+    console.log('个数', dictionary.count())
+    dictionary.clear()
+    console.log('个数', dictionary.count())
+  }
+</script>
+</html>

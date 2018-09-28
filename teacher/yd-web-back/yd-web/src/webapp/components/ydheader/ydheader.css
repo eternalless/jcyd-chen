@@ -1,0 +1,11 @@
+:root {
+    --headerColor:yellow;
+}
+.components-ydheader{
+    & h1{
+        color:var(--headerColor);
+    }
+}
+body{
+    background: black;
+}

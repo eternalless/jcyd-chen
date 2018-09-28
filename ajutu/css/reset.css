@@ -1,0 +1,57 @@
+html, body, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+ul {
+  list-style: none;
+  font-size: 0;
+}
+
+input {
+  border: none;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+  color: #b3b3b3;
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: #b3b3b3;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: #b3b3b3;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color: #b3b3b3;
+}
+
+.login-email input::-webkit-input-placeholder { /* WebKit browsers */
+  color: #444;
+}
+
+.login-email input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: #444;
+}
+
+.login-email input::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: #444;
+}
+
+.login-email input:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color: #444;
+}
+
+input:focus {
+  outline: none;
+}
+button:focus {
+  outline: none;
+  border: none;
+}
