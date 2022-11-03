@@ -30,7 +30,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "css-loader": "^1.0.0",
     "file-loader": "^2.0.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-babel": "^7.0.0",
     "gulp-eslint": "^5.0.0",
     "gulp-rollup": "^2.16.2",
